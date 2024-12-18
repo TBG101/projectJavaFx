@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "projetjavafx_65ea005e"
+        },
+        {
+            "type": "java",
+            "name": "interfaceMain",
+            "request": "launch",
+            "mainClass": "interfeace.interfaceMain",
+            "projectName": "projetjavafx_65ea005e"
+        },
+        {
+            "type": "java",
+            "name": "Launch JavaFX App",
+            "request": "launch",
+            "mainClass": "your.package.Main",
+            "vmArgs": "--module-path ./lib --add-modules javafx.controls,javafx.fxml"
+        }
+    ]
+  }
+  
