@@ -1,5 +1,6 @@
 package presentation.controllers;
 
+import entities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -11,6 +12,7 @@ public class HomeController {
 
     @FXML
     private void handleReservationsButtonAction(ActionEvent event) {
+        System.out.println("reservation");
         try {
             Parent reservationsPage = FXMLLoader.load(getClass().getResource("../views/Reservations.fxml"));
             Scene stage = ((Node) event.getSource()).getScene();
@@ -51,6 +53,5 @@ public class HomeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    } 
+    }
 }
-

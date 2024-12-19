@@ -3,19 +3,10 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Home",
+            "name": "Debug (Launch)",
             "request": "launch",
             "mainClass": "presentation.Home",
-            "projectName": "projetjavafx_65ea005e"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "App",
-            "projectName": "projetjavafx_65ea005e",
-            "vmArgs": ".\\lib\\javafx-sdk-23.0.1\\lib"
+            "vmArgs": "--module-path \"lib\\javafx-sdk-23.0.1\\lib\" --add-modules javafx.controls,javafx.fxml"
         }
     ]
-  }
-  
+}
