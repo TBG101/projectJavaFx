@@ -10,6 +10,7 @@ import java.util.List;
 
 import dao.IGestionReservation;
 import dao.SingletonConnection;
+import javafx.scene.control.CustomMenuItem;
 
 public class Reservation implements IGestionReservation {
     private int reservationId;
@@ -21,7 +22,7 @@ public class Reservation implements IGestionReservation {
     public Reservation() {
     }
 
-    public Reservation(int reservationId, Customer customer, Room room, LocalDate checkInDate, LocalDate checkOutDate) {
+    public Reservation(Customer customer, Room room, LocalDate checkInDate, LocalDate checkOutDate) {
         this.reservationId = reservationId;
         this.customer = customer;
         this.room = room;
@@ -113,7 +114,7 @@ public class Reservation implements IGestionReservation {
 
 	@Override
 	public Reservation getReservationById(int reservationId) throws SQLException{
-		Reservation reservation = null;
+		Reservation reservation = new Reservation();
         Connection connection = SingletonConnection.getConnection();
         String query = "SELECT * FROM reservation WHERE reservation = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -125,11 +126,11 @@ public class Reservation implements IGestionReservation {
             reservation.setCheckOutDate(resultSet.getDate(5).toLocalDate());
             
             // Get Customer By Id
-            Customer customer = null;
+            Customer customer = new Customer();
             reservation.setCustomer(customer.getCustomerById(resultSet.getInt(2)));;
             
             // Get Room By Id
-            Room room = null;
+            Room room = new Room();
             reservation.setRoom(room.getRoom(resultSet.getInt(3)));
             
 

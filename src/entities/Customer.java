@@ -15,6 +15,8 @@ public class Customer implements IGestionCustomer {
     private String name;
     private String phoneNumber;
     private String email;
+    public Customer() {
+    }
 
     public Customer(String name, String phoneNumber, String email) {
         this.name = name;
@@ -86,7 +88,7 @@ public class Customer implements IGestionCustomer {
     @Override
     public Customer getCustomerById(int customerId) throws SQLException {
         Connection cnx = SingletonConnection.getConnection();
-        Customer customer = null;
+        Customer customer = new Customer();
         PreparedStatement st = cnx.prepareStatement("SELECT * FROM customers WHERE id=?");
         st.setInt(1, customerId);
         var rs = st.executeQuery();

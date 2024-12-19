@@ -17,9 +17,13 @@ public class Payment implements IGestionPayment {
     private double amountPaid;
     private LocalDate paymentDate;
     private String paymentMethod;
+
+    public Payment(){
+
+    }
     
 
-    public Payment(int paymentId, Reservation reservation, double amountPaid, LocalDate paymentDate,
+    public Payment(Reservation reservation, double amountPaid, LocalDate paymentDate,
             String paymentMethod) {
         this.paymentId = paymentId;
         this.reservation = reservation;
@@ -108,7 +112,7 @@ public class Payment implements IGestionPayment {
 
     @Override
     public Payment getPaymentById(int paymentId) throws SQLException{
-        Payment payment = null;
+        Payment payment = new Payment();
         Connection connection = SingletonConnection.getConnection();
         String query = "SELECT * FROM payments WHERE paymentId = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
