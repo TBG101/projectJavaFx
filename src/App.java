@@ -8,8 +8,8 @@ public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
 
-        Customer customer1 = new Customer(1, "John Doe", "1234567890", "john@example.com");
-        Customer customer2 = new Customer(2, "Jane Smith", "0987654321", "jane@example.com");
+        Customer customer1 = new Customer("John Doe", "1234567890", "john@example.com");
+        Customer customer2 = new Customer("Jane Smith", "0987654321", "jane@example.com");
 
         // Add customers
         customer1.addCustomer(customer1);

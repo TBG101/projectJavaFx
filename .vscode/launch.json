@@ -1,12 +1,21 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "java",
-            "name": "Debug (Launch)",
-            "request": "launch",
-            "mainClass": "presentation.Home",
-            "vmArgs": "--module-path \"lib\\javafx-sdk-23.0.1\\lib\" --add-modules javafx.controls,javafx.fxml"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Launch Java Program",
+      "request": "launch",
+      "mainClass": "presentation.Home",
+      "vmArgs": "--module-path \"lib\\javafx-sdk-23.0.1\\lib\" --add-modules javafx.controls,javafx.fxml",
+      "args": "--module-path \"lib\\javafx-sdk-23.0.1\\lib\" --add-modules javafx.controls,javafx.fxml"
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)",
+      "request": "launch",
+      "mainClass": "presentation.Home",
+      "vmArgs": "--module-path \"lib\\javafx-sdk-23.0.1\\lib\" --add-modules javafx.controls,javafx.fxml",
+      "args": "--module-path \"lib\\javafx-sdk-23.0.1\\lib\" --add-modules javafx.controls,javafx.fxml"
+    }
+  ]
 }

@@ -8,8 +8,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -18,7 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.fxml.Initializable;
 
-public class ReservationsController implements Initializable {
+public class ReservationsController {
 
     @FXML
     private TableView<Reservation> reservationTable;
@@ -34,7 +36,7 @@ public class ReservationsController implements Initializable {
     private TableColumn<Reservation, String> colCheckOutDate;
 
     @FXML
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         System.out.println("Initializing ReservationsController...");
         colReservationId.setCellValueFactory(new PropertyValueFactory<>("reservationId"));
         colCustomerId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -61,8 +63,8 @@ public class ReservationsController implements Initializable {
     @FXML
     private void handleBackToHomeAction(ActionEvent event) {
         try {
-            
-             homePage = FXMLLoader.load(getClass().getResource("../../views/Home.fxml"));
+
+            Parent homePage = FXMLLoader.load(getClass().getResource("../../views/Home.fxml"));
             Scene stage = ((Node) event.getSource()).getScene();
             stage.setRoot(homePage);
         } catch (Exception e) {
@@ -82,4 +84,5 @@ public class ReservationsController implements Initializable {
             e.printStackTrace();
         }
     }
+
 }
