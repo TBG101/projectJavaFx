@@ -5,15 +5,15 @@ import entities.Payment;
 import entities.Room;
 import entities.Reservation;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
 public interface IGestionReservation {
-    void addReservation(Reservation reservation);
-    void updateReservation(Reservation reservation);
-    void deleteReservation(int reservationId);
-    Reservation getReservationById(int reservationId);
-    List<Reservation> getAllReservations();
+    void addReservation(Reservation reservation) throws SQLException;
+    void updateReservation(Reservation reservation) throws SQLException;
+    void deleteReservation(int reservationId) throws SQLException;
+    Reservation getReservationById(int reservationId) throws SQLException;
+    List<Reservation> getAllReservations() throws SQLException;
 
-    void setCheckOutDate(LocalDate checkOutDate);
 }

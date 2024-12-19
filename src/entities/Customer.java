@@ -16,13 +16,15 @@ public class Customer implements IGestionCustomer {
     private String phoneNumber;
     private String email;
 
-    public Customer(int id, String name, String phoneNumber, String email) {
-        this.id = id;
+    public Customer(String name, String phoneNumber, String email) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
-
+    public void setId(int id) {
+        this.id = id;
+    }
+   
     public int getId() {
         return id;
     }
@@ -90,10 +92,10 @@ public class Customer implements IGestionCustomer {
         var rs = st.executeQuery();
         if (rs.next()) {
             customer = new Customer(
-                    rs.getInt("id"),
                     rs.getString("name"),
                     rs.getString("phoneNumber"),
                     rs.getString("email"));
+            customer.setId(customerId);
         }
 
         return customer;
@@ -107,10 +109,10 @@ public class Customer implements IGestionCustomer {
         ResultSet rs = st.executeQuery();
         while (rs.next()) {
             Customer customer = new Customer(
-                    rs.getInt("id"),
                     rs.getString("name"),
                     rs.getString("phoneNumber"),
                     rs.getString("email"));
+            customer.setId(rs.getInt("id"));
             customers.add(customer);
         }
 
@@ -126,10 +128,10 @@ public class Customer implements IGestionCustomer {
         ResultSet rs = st.executeQuery();
         while (rs.next()) {
             Customer customer = new Customer(
-                    rs.getInt("id"),
                     rs.getString("name"),
                     rs.getString("phoneNumber"),
                     rs.getString("email"));
+            customer.setId(rs.getInt("id"));
             customers.add(customer);
         }
 

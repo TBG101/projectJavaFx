@@ -1,31 +1,26 @@
 package dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import entities.Room;
 
 public interface IGestionRoom {
-    int getRoomNumber();
 
-    void setRoomNumber(int roomNumber);
 
-    String getRoomType();
+    List<Room> getRooms() throws SQLException;
+    
+    List<Room> getRoomsByType(String type) throws SQLException;
+    
+    List<Room> getRoomsByAvailability(Boolean availability) throws SQLException;
 
-    void setRoomType(String roomType);
+    void addRoom(Room room) throws SQLException;
 
-    boolean isAvailable();
+    void removeRoom(Room room) throws SQLException;
 
-    void setAvailable(boolean available);
+    void updateRoom(Room room) throws SQLException;
 
-    List<Room> getRooms();
-
-    void addRoom(Room room);
-
-    void removeRoom(Room room);
-
-    void updateRoom(Room room);
-
-    Room getRoom(int roomNumber);
+    Room getRoom(int roomNumber) throws SQLException;
 
 
 }

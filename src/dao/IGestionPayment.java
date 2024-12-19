@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IGestionPayment {
-    void addPayment(Payment payment);
-    void updatePayment(Payment payment);
-    void deletePayment(int paymentId);
+    void addPayment(Payment payment) throws SQLException;
+    void updatePayment(Payment payment) throws SQLException;
+    void deletePayment(int paymentId) throws SQLException;
     Payment getPaymentById(int paymentId) throws SQLException;
-    List<Payment> getAllPayments();
+    List<Payment> getAllPayments() throws SQLException;
 }

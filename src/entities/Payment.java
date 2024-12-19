@@ -70,47 +70,40 @@ public class Payment implements IGestionPayment {
     }
 
     @Override
-    public void addPayment(Payment payment) {
-        try (Connection connection = SingletonConnection.getConnection()) {
-            String query = "INSERT INTO payments (paymentId, reservationId, amountPaid, paymentDate, paymentMethod) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, payment.getPaymentId());
-            preparedStatement.setInt(2, payment.getReservation().getReservationId());
-            preparedStatement.setDouble(3, payment.getAmountPaid());
-            preparedStatement.setDate(4, java.sql.Date.valueOf(payment.getPaymentDate()));
-            preparedStatement.setString(5, payment.getPaymentMethod());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void addPayment(Payment payment) throws SQLException{
+        Connection connection = SingletonConnection.getConnection();
+        String query = "INSERT INTO payments (paymentId, reservationId, amountPaid, paymentDate, paymentMethod) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, payment.getPaymentId());
+        preparedStatement.setInt(2, payment.getReservation().getReservationId());
+        preparedStatement.setDouble(3, payment.getAmountPaid());
+        preparedStatement.setDate(4, java.sql.Date.valueOf(payment.getPaymentDate()));
+        preparedStatement.setString(5, payment.getPaymentMethod());
+        preparedStatement.executeUpdate();
     }
 
     @Override
-    public void updatePayment(Payment payment) {
-        try (Connection connection = SingletonConnection.getConnection()) {
-            String query = "UPDATE payments SET reservationId = ?, amountPaid = ?, paymentDate = ?, paymentMethod = ? WHERE paymentId = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, payment.getReservation().getReservationId());
-            preparedStatement.setDouble(2, payment.getAmountPaid());
-            preparedStatement.setDate(3, java.sql.Date.valueOf(payment.getPaymentDate()));
-            preparedStatement.setString(4, payment.getPaymentMethod());
-            preparedStatement.setInt(5, payment.getPaymentId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void updatePayment(Payment payment) throws SQLException{
+       Connection connection = SingletonConnection.getConnection();
+        String query = "UPDATE payments SET reservationId = ?, amountPaid = ?, paymentDate = ?, paymentMethod = ? WHERE paymentId = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, payment.getReservation().getReservationId());
+        preparedStatement.setDouble(2, payment.getAmountPaid());
+        preparedStatement.setDate(3, java.sql.Date.valueOf(payment.getPaymentDate()));
+        preparedStatement.setString(4, payment.getPaymentMethod());
+        preparedStatement.setInt(5, payment.getPaymentId());
+        preparedStatement.executeUpdate();
+        
     }
 
     @Override
-    public void deletePayment(int paymentId) {
-        try (Connection connection = SingletonConnection.getConnection()) {
-            String query = "DELETE FROM payments WHERE paymentId = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, paymentId);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void deletePayment(int paymentId) throws SQLException{
+        Connection connection = SingletonConnection.getConnection();
+        String query = "DELETE FROM payments WHERE paymentId = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, paymentId);
+        preparedStatement.executeUpdate();
+        
     }
 
     @Override
@@ -123,20 +116,13 @@ public class Payment implements IGestionPayment {
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             payment.setPaymentId(resultSet.getInt("id"));
-            payment.setAmountPaid(resultSet.getInt("amountPaid"));
+            payment.setAmountPaid(resultSet.getDouble("amountPaid"));
             payment.setPaymentMethod(resultSet.getString("paymentMethod"));
             payment.setPaymentDate(resultSet.getDate("paymentDate").toLocalDate());
             Reservation reservation = new Reservation();
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM reservation WHERE id=?");
-            ps.setInt(1, resultSet.getInt("reservationId"));
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                reservation.setReservationId(rs.geInt("id"));
-                reservation.setCheckInDate(rs.getString("checkInDate")).LocalDate();
-                
-
-            }
-
+            reservation = reservation.getReservationById(resultSet.getInt("reservationId"));
+            payment.setReservation(reservation);
+            
             
         }
 
@@ -144,30 +130,25 @@ public class Payment implements IGestionPayment {
     }
 
     @Override
-    public List<Payment> getAllPayments() {
+    public List<Payment> getAllPayments() throws SQLException{
         List<Payment> payments = new ArrayList<>();
-        try (Connection connection = SingletonConnection.getConnection()) {
-            String query = "SELECT * FROM payments";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Payment payment = new Payment(
-                        resultSet.getInt("paymentId"),
-                        new Reservation(resultSet.getInt("reservationId")), // Assuming Reservation has a constructor
-                                                                            // with reservationId
-                        resultSet.getDouble("amountPaid"),
-                        resultSet.getDate("paymentDate").toLocalDate(),
-                        resultSet.getString("paymentMethod"));
-                payments.add(payment);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Connection connection = SingletonConnection.getConnection(); 
+        String query = "SELECT * FROM payments";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+        	Payment payment = null;
+        	payment.setPaymentId(resultSet.getInt("id"));
+            payment.setAmountPaid(resultSet.getDouble("amountPaid"));
+            payment.setPaymentMethod(resultSet.getString("paymentMethod"));
+            payment.setPaymentDate(resultSet.getDate("paymentDate").toLocalDate());
+            Reservation reservation = new Reservation();
+            reservation = reservation.getReservationById(resultSet.getInt("reservationId"));
+            payment.setReservation(reservation);
+            payments.add(payment);
         }
+        
         return payments;
     }
 
-    @Override
-    public void processPayment(Payment payment) {
-        addPayment(payment);
-    }
 }
