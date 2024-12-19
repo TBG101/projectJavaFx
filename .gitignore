@@ -4,7 +4,7 @@
 .vscode/
 .vscode/*
 .classpath
-.project
+/.project
 .settings
 /target
 /.idea
