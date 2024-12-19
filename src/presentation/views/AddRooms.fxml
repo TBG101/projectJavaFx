@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+    fx:controller="presentation.controllers.room.AddRoom">
+    <children>
+        <Button text="Back to Rooms" onAction="#handleBackToRoomsAction" />
+
+        <VBox spacing="10" alignment="TOP_CENTER" AnchorPane.topAnchor="10.0"
+            AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="10.0"
+            AnchorPane.bottomAnchor="10.0">
+            <Label text="Add Room" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+            <!-- Room Number Field -->
+            <HBox spacing="10">
+                <Label text="Room Number:" prefWidth="120" />
+                <TextField fx:id="txtRoomNumber" />
+            </HBox>
+
+            <!-- Room Type Field -->
+            <HBox spacing="10">
+                <Label text="Room Type:" prefWidth="120" />
+                <TextField fx:id="txtRoomType" />
+            </HBox>
+
+            <!-- Availability Field -->
+            <HBox spacing="10">
+                <Label text="Is Available:" prefWidth="120" />
+                <CheckBox fx:id="chkIsAvailable" />
+            </HBox>
+
+            <!-- Action Buttons -->
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button text="Add Room" />
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>
